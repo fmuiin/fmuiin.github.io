@@ -9,10 +9,9 @@ const siteConfig = {
   name: "Fathul Muiin",
   url: "https://fmuiin.github.io",
   description:
-    "Building scalable software that solves real-world business problems.",
+    "Full Stack Software Engineer building scalable software that solves real-world business problems.",
 };
 
-// Project slugs (must match content/data/projects.ts)
 const projectSlugs = [
   "wmedia-ticketing-system",
   "trustevolve-ai",
@@ -59,8 +58,8 @@ function generateRss() {
     .map(
       (post) => `    <item>
       <title>${escapeXml(post.title)}</title>
-      <link>${siteConfig.url}/blog/${post.slug}</link>
-      <guid>${siteConfig.url}/blog/${post.slug}</guid>
+      <link>${siteConfig.url}/posts/${post.slug}</link>
+      <guid>${siteConfig.url}/posts/${post.slug}</guid>
       <description>${escapeXml(post.excerpt)}</description>
       <pubDate>${new Date(post.date).toUTCString()}</pubDate>
     </item>`
@@ -70,8 +69,8 @@ function generateRss() {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${escapeXml(siteConfig.name)} - Blog</title>
-    <link>${siteConfig.url}/blog</link>
+    <title>${escapeXml(siteConfig.name)} - Posts</title>
+    <link>${siteConfig.url}/posts</link>
     <description>${escapeXml(siteConfig.description)}</description>
     <language>en</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
@@ -90,15 +89,9 @@ function generateSitemap() {
 
   const staticPages = [
     { url: "", priority: "1.0" },
-    { url: "/about", priority: "0.8" },
-    { url: "/projects", priority: "0.8" },
-    { url: "/experience", priority: "0.8" },
-    { url: "/open-source", priority: "0.8" },
-    { url: "/blog", priority: "0.8" },
-    { url: "/resume", priority: "0.7" },
-    { url: "/contact", priority: "0.7" },
+    { url: "/works", priority: "0.8" },
+    { url: "/posts", priority: "0.8" },
     { url: "/uses", priority: "0.6" },
-    { url: "/now", priority: "0.6" },
   ];
 
   const urls = [
@@ -112,7 +105,7 @@ function generateSitemap() {
     ),
     ...projectSlugs.map(
       (slug) => `  <url>
-    <loc>${siteConfig.url}/projects/${slug}</loc>
+    <loc>${siteConfig.url}/works/${slug}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -120,7 +113,7 @@ function generateSitemap() {
     ),
     ...posts.map(
       (post) => `  <url>
-    <loc>${siteConfig.url}/blog/${post.slug}</loc>
+    <loc>${siteConfig.url}/posts/${post.slug}</loc>
     <lastmod>${post.date}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>

@@ -2,24 +2,21 @@ import type { NavItem, SocialLink } from "@/types";
 
 export const siteConfig = {
   name: "Fathul Muiin",
-  title: "Fathul Muiin - Full Stack Software Engineer",
+  title: "Fathul Muiin - Homepage",
   description:
-    "Building scalable software that solves real-world business problems. Full Stack Software Engineer specializing in Laravel, Cloud, and AI-powered applications.",
+    "Fathul Muiin's homepage. Full Stack Software Engineer building scalable software that solves real-world business problems.",
   url: "https://fmuiin.github.io",
   github: "https://github.com/fmuiin",
   linkedin: "https://linkedin.com/in/fmuiin",
   email: "fathulmuiin@gmail.com",
   githubUsername: "fmuiin",
+  repoUrl: "https://github.com/fmuiin/fmuiin.github.io",
 };
 
 export const navItems: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "Blog", href: "/blog" },
-  { label: "Experience", href: "/experience" },
-  { label: "Open Source", href: "/open-source" },
-  { label: "Resume", href: "/resume" },
-  { label: "Contact", href: "/contact" },
+  { label: "Works", href: "/works" },
+  { label: "Posts", href: "/posts" },
+  { label: "Uses", href: "/uses" },
 ];
 
 export const socialLinks: SocialLink[] = [

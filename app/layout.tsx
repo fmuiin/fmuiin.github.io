@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/constants";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { ScrollProgress } from "@/components/shared/ScrollProgress";
-import { CommandPalette } from "@/components/shared/CommandPalette";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,16 +11,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   title: {
     default: siteConfig.title,
-    template: `%s | ${siteConfig.name}`,
+    template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
@@ -66,24 +58,28 @@ export default function RootLayout({
   };
 
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} dark`}
-    >
+    <html lang="en" className={`${inter.variable}`}>
       <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800&display=swap"
+          rel="stylesheet"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen bg-background text-text antialiased">
+      <body className="min-h-screen antialiased">
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
-        <ScrollProgress />
-        <CommandPalette />
         <Navbar />
-        <div id="main-content" className="pt-16">{children}</div>
+        <main
+          id="main-content"
+          className="mx-auto max-w-[768px] px-6 pt-20 pb-8"
+        >
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

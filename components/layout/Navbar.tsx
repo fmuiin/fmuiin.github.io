@@ -1,111 +1,107 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { navItems, siteConfig } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { Menu, X, Code2 } from "lucide-react";
+import { siteConfig, navItems } from "@/lib/constants";
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    function handleScroll() {
-      setIsScrolled(window.scrollY > 10);
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 z-40 w-full transition-all duration-300",
-        isScrolled
-          ? "border-b border-border bg-background/80 backdrop-blur-md"
-          : "bg-transparent"
-      )}
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md"
+      style={{ backgroundColor: "rgba(32, 32, 35, 0.8)" }}
     >
-      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        {/* Logo */}
+      <div className="mx-auto max-w-[768px] flex items-center justify-between px-6 py-3">
+        {/* Logo / Name */}
         <Link
           href="/"
-          className="text-lg font-semibold text-text transition-colors hover:text-primary"
+          className="flex items-center gap-2 font-bold text-heading text-lg no-underline hover:no-underline"
+          style={{ color: "var(--color-heading)" }}
         >
+          <span className="text-xl">&#9781;</span>
           {siteConfig.name}
         </Link>
 
-        {/* Desktop Navigation */}
-        <ul className="hidden items-center gap-1 md:flex">
+        {/* Desktop nav links */}
+        <div className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className={cn(
-                  "rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                  pathname === item.href
-                    ? "text-primary"
-                    : "text-text-muted hover:text-text"
-                )}
-              >
-                {item.label}
-              </Link>
-            </li>
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`text-sm transition-colors no-underline hover:underline ${
+                pathname === item.href || pathname.startsWith(item.href + "/")
+                  ? "text-primary"
+                  : ""
+              }`}
+              style={{
+                color:
+                  pathname === item.href ||
+                  pathname.startsWith(item.href + "/")
+                    ? "var(--color-primary)"
+                    : "var(--color-text)",
+              }}
+            >
+              {item.label}
+            </Link>
           ))}
-        </ul>
-
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-text-muted transition-colors hover:text-text md:hidden"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isMobileMenuOpen}
-        >
-          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </nav>
-
-      {/* Mobile Navigation */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden border-b border-border bg-surface md:hidden"
+          <a
+            href={siteConfig.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-text-muted hover:text-text transition-colors"
+            style={{ color: "var(--color-text-muted)" }}
+            aria-label="View source on GitHub"
           >
-            <ul className="flex flex-col px-6 py-4">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "block rounded-md px-3 py-2.5 text-sm font-medium transition-colors",
-                      pathname === item.href
-                        ? "text-primary"
-                        : "text-text-muted hover:text-text"
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+            <Code2 size={18} />
+          </a>
+        </div>
+
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          style={{ color: "var(--color-text)" }}
+        >
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="md:hidden px-6 pb-4 flex flex-col gap-3">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setMobileOpen(false)}
+              className="text-sm py-1 no-underline"
+              style={{
+                color:
+                  pathname === item.href ||
+                  pathname.startsWith(item.href + "/")
+                    ? "var(--color-primary)"
+                    : "var(--color-text)",
+              }}
+            >
+              {item.label}
+            </Link>
+          ))}
+          <a
+            href={siteConfig.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm flex items-center gap-2 no-underline"
+            style={{ color: "var(--color-text-muted)" }}
+          >
+            <Code2 size={16} /> Source
+          </a>
+        </div>
+      )}
+    </nav>
   );
 }
