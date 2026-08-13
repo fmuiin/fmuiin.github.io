@@ -68,7 +68,8 @@ export default function Home() {
       {/* Experience section */}
       <section className="mb-8">
         <h2 className="section-title">Experience</h2>
-        <div className="space-y-5">
+        <div className="space-y-6">
+          {/* W.Media Global */}
           <div>
             <div className="flex items-baseline justify-between gap-4">
               <h3
@@ -81,46 +82,104 @@ export default function Home() {
                 className="text-sm shrink-0"
                 style={{ color: "var(--color-text-muted)" }}
               >
-                2023 - Present
+                Mar 2023 - Present
               </span>
             </div>
             <p
-              className="text-sm mb-1"
+              className="text-sm mb-2"
               style={{ color: "var(--color-accent)" }}
             >
-              W.Media Global (Singapore)
+              W.Media Global &middot; Singapore &middot; Remote
             </p>
-            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-              Built a scalable event management &amp; ticketing platform. Designed RBAC systems, CI/CD pipelines, payment gateway integrations, and RESTful APIs. Also contributed React-based PWA and custom WordPress plugins.
+            <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
+              Built and launched a scalable event management and ticketing
+              platform that improved registration speed, streamlined attendee
+              operations, and supported repeat event participation across
+              multiple event types.
             </p>
+            <ul
+              className="text-sm list-disc pl-5 space-y-1"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              <li>
+                Architected a Laravel 10-based event platform with multi-tier
+                ticketing, dynamic pricing, tax handling, and corporate booking
+                workflows
+              </li>
+              <li>
+                Integrated Stripe and multiple payment gateways for secure,
+                reliable online transactions
+              </li>
+              <li>
+                Implemented RBAC (Spatie), authentication flows, and RESTful APIs
+                for mobile apps and third-party integrations
+              </li>
+              <li>
+                Built real-time analytics and reporting dashboards for
+                operational visibility and data-driven event decisions
+              </li>
+              <li>
+                Set up CI/CD pipelines with GitHub Actions, improving development
+                reliability through testing and deployment best practices
+              </li>
+              <li>
+                Built a PWA event app using React.js with login, sponsor-speaker
+                booking, session rating, agenda viewing, and in-app chat
+              </li>
+            </ul>
           </div>
 
+          {/* MNC Portal Indonesia */}
           <div>
             <div className="flex items-baseline justify-between gap-4">
               <h3
                 className="font-semibold"
                 style={{ color: "var(--color-heading)" }}
               >
-                Backend Developer
+                Full-Stack Web Developer
               </h3>
               <span
                 className="text-sm shrink-0"
                 style={{ color: "var(--color-text-muted)" }}
               >
-                2021 - 2023
+                Sep 2021 - Feb 2023
               </span>
             </div>
             <p
-              className="text-sm mb-1"
+              className="text-sm mb-2"
               style={{ color: "var(--color-accent)" }}
             >
-              MNC Portal Indonesia
+              MNC Portal Indonesia &middot; Jakarta &middot; On-site
             </p>
-            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-              Developed and maintained high-traffic digital media platforms across multiple brands. Improved performance, mobile content delivery, and personalization features for news portals.
+            <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
+              Worked on the development and maintenance of high-traffic digital
+              media platforms, contributing to web performance, content delivery,
+              and user experience across multiple online news portals.
             </p>
+            <ul
+              className="text-sm list-disc pl-5 space-y-1"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              <li>
+                Developed and maintained media portal features across multiple
+                brands, supporting content presentation and responsive user
+                experiences
+              </li>
+              <li>
+                Optimized mobile-friendly and lightweight web experiences,
+                improving page speed and accessibility for smartphone users
+              </li>
+              <li>
+                Built frontend and backend components for content-driven
+                platforms, ensuring stable performance and efficient delivery
+              </li>
+              <li>
+                Platforms: Hi-Lite SINDOnews, Celebrities.id, Sportstars.id
+              </li>
+            </ul>
           </div>
 
+          {/* Rynest Technology */}
           <div>
             <div className="flex items-baseline justify-between gap-4">
               <h3
@@ -133,20 +192,41 @@ export default function Home() {
                 className="text-sm shrink-0"
                 style={{ color: "var(--color-text-muted)" }}
               >
-                2020 - 2021
+                Oct 2020 - Aug 2021
               </span>
             </div>
             <p
-              className="text-sm mb-1"
+              className="text-sm mb-2"
               style={{ color: "var(--color-accent)" }}
             >
-              Rynest Technology Indomedia
+              Rynest Technology Indomedia &middot; Depok &middot; On-site
             </p>
-            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-              Delivered client-focused web apps for education, certification, and healthcare platforms using Laravel and CodeIgniter.
+            <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
+              Delivered client-focused web development projects, building landing
+              pages and website solutions tailored to business needs, branding
+              requirements, and functional goals.
             </p>
+            <ul
+              className="text-sm list-disc pl-5 space-y-1"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              <li>
+                Designed and developed high-quality landing pages for client
+                campaigns and digital initiatives
+              </li>
+              <li>
+                Built, maintained, and enhanced websites ensuring seamless
+                functionality, security, and brand alignment
+              </li>
+              <li>
+                Notable: LSP Perasuransian Syariah — web presence for a
+                professional certification institution in the sharia insurance
+                sector
+              </li>
+            </ul>
           </div>
 
+          {/* Merry Riana Group */}
           <div>
             <div className="flex items-baseline justify-between gap-4">
               <h3
@@ -159,18 +239,42 @@ export default function Home() {
                 className="text-sm shrink-0"
                 style={{ color: "var(--color-text-muted)" }}
               >
-                2019
+                Jul 2019 - Sep 2020
               </span>
             </div>
             <p
-              className="text-sm mb-1"
+              className="text-sm mb-2"
               style={{ color: "var(--color-accent)" }}
             >
-              Merry Riana Group
+              Merry Riana Group &middot; Jakarta &middot; On-site
             </p>
-            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-              Built conversion-focused landing pages for seminars, digital classes, and marketing campaigns. Integrated lead capture systems.
+            <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
+              Contributed to the development and maintenance of digital platforms
+              across the Merry Riana Group ecosystem, supporting marketing
+              campaigns, lead generation, e-commerce, and online learning
+              initiatives.
             </p>
+            <ul
+              className="text-sm list-disc pl-5 space-y-1"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              <li>
+                Developed conversion-focused landing pages for programs,
+                merchandise, seminars, and digital classes
+              </li>
+              <li>
+                Integrated landing pages with internal lead capture system using
+                AJAX for efficient data submission
+              </li>
+              <li>
+                Maintained and enhanced multiple websites ensuring stable
+                functionality and consistent branding
+              </li>
+              <li>
+                Platforms: merryriana.com, merryrianashop.com,
+                merryrianalearningcentre.com, leads.merryriana.com
+              </li>
+            </ul>
           </div>
         </div>
       </section>
