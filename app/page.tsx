@@ -92,39 +92,27 @@ export default function Home() {
               W.Media Global &middot; Singapore &middot; Remote
             </p>
             <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
-              Built and launched a scalable event management and ticketing
-              platform that improved registration speed, streamlined attendee
-              operations, and supported repeat event participation across
-              multiple event types.
+              Built an event management platform from scratch supporting 5+
+              event types, processing 1,000+ registrations per event cycle with
+              3x faster registration flow compared to prior manual process.
             </p>
             <ul
               className="text-sm list-disc pl-5 space-y-1"
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
-                Architected a Laravel 10-based event platform with multi-tier
-                ticketing, dynamic pricing, tax handling, and corporate booking
-                workflows
+                Architected a Laravel 10 platform with multi-tier ticketing,
+                dynamic pricing, and Stripe integration — handling 100%
+                automated payment processing
               </li>
               <li>
-                Integrated Stripe and multiple payment gateways for secure,
-                reliable online transactions
+                Built a React.js PWA event app with 6 core features (login,
+                booking, rating, agenda, chat, sponsors) improving on-site
+                attendee engagement
               </li>
               <li>
-                Implemented RBAC (Spatie), authentication flows, and RESTful APIs
-                for mobile apps and third-party integrations
-              </li>
-              <li>
-                Built real-time analytics and reporting dashboards for
-                operational visibility and data-driven event decisions
-              </li>
-              <li>
-                Set up CI/CD pipelines with GitHub Actions, improving development
-                reliability through testing and deployment best practices
-              </li>
-              <li>
-                Built a PWA event app using React.js with login, sponsor-speaker
-                booking, session rating, agenda viewing, and in-app chat
+                Set up CI/CD pipelines with GitHub Actions, reducing deployment
+                time from hours to minutes with automated testing
               </li>
             </ul>
           </div>
@@ -152,29 +140,26 @@ export default function Home() {
               MNC Portal Indonesia &middot; Jakarta &middot; On-site
             </p>
             <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
-              Worked on the development and maintenance of high-traffic digital
-              media platforms, contributing to web performance, content delivery,
-              and user experience across multiple online news portals.
+              Maintained 3 high-traffic media portals serving millions of
+              monthly readers, improving mobile page load speed and content
+              delivery performance.
             </p>
             <ul
               className="text-sm list-disc pl-5 space-y-1"
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
-                Developed and maintained media portal features across multiple
-                brands, supporting content presentation and responsive user
-                experiences
+                Optimized lightweight mobile web experiences for Hi-Lite
+                SINDOnews, reducing page weight for faster access on low-end
+                devices
               </li>
               <li>
-                Optimized mobile-friendly and lightweight web experiences,
-                improving page speed and accessibility for smartphone users
+                Built and maintained frontend &amp; backend features across 3
+                platforms (Hi-Lite SINDOnews, Celebrities.id, Sportstars.id)
               </li>
               <li>
-                Built frontend and backend components for content-driven
-                platforms, ensuring stable performance and efficient delivery
-              </li>
-              <li>
-                Platforms: Hi-Lite SINDOnews, Celebrities.id, Sportstars.id
+                Contributed to personalization features supporting interest-based
+                article recommendations for improved user retention
               </li>
             </ul>
           </div>
@@ -202,26 +187,25 @@ export default function Home() {
               Rynest Technology Indomedia &middot; Depok &middot; On-site
             </p>
             <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
-              Delivered client-focused web development projects, building landing
-              pages and website solutions tailored to business needs, branding
-              requirements, and functional goals.
+              Delivered 4+ client web projects on time across education,
+              certification, and healthcare sectors with Laravel &amp;
+              CodeIgniter.
             </p>
             <ul
               className="text-sm list-disc pl-5 space-y-1"
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
-                Designed and developed high-quality landing pages for client
-                campaigns and digital initiatives
+                Built production-ready web apps for Qonstanta, LSP Perasuransian
+                Syariah, and Kitamedicare from requirements to deployment
               </li>
               <li>
-                Built, maintained, and enhanced websites ensuring seamless
-                functionality, security, and brand alignment
+                Designed and developed landing pages and admin workflows for
+                client campaigns and digital initiatives
               </li>
               <li>
-                Notable: LSP Perasuransian Syariah — web presence for a
-                professional certification institution in the sharia insurance
-                sector
+                Maintained websites ensuring seamless functionality, security,
+                and consistent brand alignment across clients
               </li>
             </ul>
           </div>
@@ -249,30 +233,25 @@ export default function Home() {
               Merry Riana Group &middot; Jakarta &middot; On-site
             </p>
             <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
-              Contributed to the development and maintenance of digital platforms
-              across the Merry Riana Group ecosystem, supporting marketing
-              campaigns, lead generation, e-commerce, and online learning
-              initiatives.
+              Supported 4 web platforms and built 20+ conversion-focused landing
+              pages driving lead generation for seminars, e-commerce, and digital
+              classes.
             </p>
             <ul
               className="text-sm list-disc pl-5 space-y-1"
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
-                Developed conversion-focused landing pages for programs,
-                merchandise, seminars, and digital classes
+                Developed landing pages with AJAX-based lead capture integration,
+                streamlining data submission for marketing campaigns
               </li>
               <li>
-                Integrated landing pages with internal lead capture system using
-                AJAX for efficient data submission
+                Maintained and enhanced merryriana.com, merryrianashop.com,
+                merryrianalearningcentre.com, and leads.merryriana.com
               </li>
               <li>
-                Maintained and enhanced multiple websites ensuring stable
-                functionality and consistent branding
-              </li>
-              <li>
-                Platforms: merryriana.com, merryrianashop.com,
-                merryrianalearningcentre.com, leads.merryriana.com
+                Ensured stable functionality, consistent branding, and smooth UX
+                across all platforms supporting marketing operations
               </li>
             </ul>
           </div>
