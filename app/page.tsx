@@ -92,10 +92,10 @@ export default function Home() {
               W.Media Global &middot; Singapore &middot; Remote
             </p>
             <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
-              Built an event management platform from scratch supporting 5+
-              event types, processing 1,000+ registrations per event cycle —
-              3x faster registration flow compared to the previous
-              WordPress-based event ticketing system.
+              Led development of 3 core products (ticketing platform, PWA event
+              app, custom WordPress plugins) serving 1,000+ registrations per
+              event cycle across 5+ event types in the APAC region. Reduced
+              overall engineering release cycle by 80% through CI/CD automation.
             </p>
             <ul
               className="text-sm list-disc pl-5 space-y-1.5"
