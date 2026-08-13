@@ -65,53 +65,180 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bio section */}
+      {/* Experience section */}
       <section className="mb-8">
-        <h2 className="section-title">Bio</h2>
-        <div className="space-y-2">
-          <div className="flex">
-            <span className="bio-year">2014</span>
-            <span>
-              Enrolled in Informatics Engineering at Institute of Technology
-              Nurul Fikri
-            </span>
+        <h2 className="section-title">Experience</h2>
+        <div className="space-y-5">
+          <div>
+            <div className="flex items-baseline justify-between gap-4">
+              <h3
+                className="font-semibold"
+                style={{ color: "var(--color-heading)" }}
+              >
+                Senior Software Engineer
+              </h3>
+              <span
+                className="text-sm shrink-0"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                2023 - Present
+              </span>
+            </div>
+            <p
+              className="text-sm mb-1"
+              style={{ color: "var(--color-accent)" }}
+            >
+              W.Media Global (Singapore)
+            </p>
+            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Built a scalable event management &amp; ticketing platform. Designed RBAC systems, CI/CD pipelines, payment gateway integrations, and RESTful APIs. Also contributed React-based PWA and custom WordPress plugins.
+            </p>
           </div>
-          <div className="flex">
-            <span className="bio-year">2018</span>
-            <span>
-              Completed Bachelor&apos;s Degree in Informatics Engineering.
-              Attended Web Development Bootcamp at Glints x Binar Academy
-            </span>
+
+          <div>
+            <div className="flex items-baseline justify-between gap-4">
+              <h3
+                className="font-semibold"
+                style={{ color: "var(--color-heading)" }}
+              >
+                Backend Developer
+              </h3>
+              <span
+                className="text-sm shrink-0"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                2021 - 2023
+              </span>
+            </div>
+            <p
+              className="text-sm mb-1"
+              style={{ color: "var(--color-accent)" }}
+            >
+              MNC Portal Indonesia
+            </p>
+            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Developed and maintained high-traffic digital media platforms across multiple brands. Improved performance, mobile content delivery, and personalization features for news portals.
+            </p>
           </div>
-          <div className="flex">
-            <span className="bio-year">2019</span>
-            <span>Web Developer at Merry Riana Group</span>
+
+          <div>
+            <div className="flex items-baseline justify-between gap-4">
+              <h3
+                className="font-semibold"
+                style={{ color: "var(--color-heading)" }}
+              >
+                Web Developer
+              </h3>
+              <span
+                className="text-sm shrink-0"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                2020 - 2021
+              </span>
+            </div>
+            <p
+              className="text-sm mb-1"
+              style={{ color: "var(--color-accent)" }}
+            >
+              Rynest Technology Indomedia
+            </p>
+            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Delivered client-focused web apps for education, certification, and healthcare platforms using Laravel and CodeIgniter.
+            </p>
           </div>
-          <div className="flex">
-            <span className="bio-year">2020</span>
-            <span>
-              Web Developer at Rynest Technology Indomedia — client-focused web
-              apps for education, certification &amp; healthcare
-            </span>
+
+          <div>
+            <div className="flex items-baseline justify-between gap-4">
+              <h3
+                className="font-semibold"
+                style={{ color: "var(--color-heading)" }}
+              >
+                Web Developer
+              </h3>
+              <span
+                className="text-sm shrink-0"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                2019
+              </span>
+            </div>
+            <p
+              className="text-sm mb-1"
+              style={{ color: "var(--color-accent)" }}
+            >
+              Merry Riana Group
+            </p>
+            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Built conversion-focused landing pages for seminars, digital classes, and marketing campaigns. Integrated lead capture systems.
+            </p>
           </div>
-          <div className="flex">
-            <span className="bio-year">2021</span>
-            <span>
-              Backend Developer at MNC Portal Indonesia — high-traffic digital
-              media platforms across multiple brands
-            </span>
+        </div>
+      </section>
+
+      {/* Education section */}
+      <section className="mb-8">
+        <h2 className="section-title">Education</h2>
+        <div className="space-y-4">
+          <div>
+            <div className="flex items-baseline justify-between gap-4">
+              <h3
+                className="font-semibold"
+                style={{ color: "var(--color-heading)" }}
+              >
+                Bachelor of Informatics Engineering
+              </h3>
+              <span
+                className="text-sm shrink-0"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                2014 - 2018
+              </span>
+            </div>
+            <p
+              className="text-sm"
+              style={{ color: "var(--color-accent)" }}
+            >
+              Institute of Technology Nurul Fikri
+            </p>
           </div>
-          <div className="flex">
-            <span className="bio-year">2023</span>
-            <span>
-              Senior Software Engineer at W.Media Global (Singapore) — event
-              management &amp; ticketing platform
-            </span>
+          <div>
+            <div className="flex items-baseline justify-between gap-4">
+              <h3
+                className="font-semibold"
+                style={{ color: "var(--color-heading)" }}
+              >
+                Web Development Bootcamp
+              </h3>
+              <span
+                className="text-sm shrink-0"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                Nov 2018 - Jan 2019
+              </span>
+            </div>
+            <p
+              className="text-sm"
+              style={{ color: "var(--color-accent)" }}
+            >
+              Glints x Binar Academy
+            </p>
           </div>
-          <div className="flex">
-            <span className="bio-year">2026</span>
-            <span>AWS Certified Cloud Practitioner (CLF-C02)</span>
-          </div>
+        </div>
+      </section>
+
+      {/* Certifications */}
+      <section className="mb-8">
+        <h2 className="section-title">Certifications</h2>
+        <div className="flex items-baseline justify-between gap-4">
+          <span style={{ color: "var(--color-heading)" }}>
+            AWS Certified Cloud Practitioner (CLF-C02)
+          </span>
+          <span
+            className="text-sm shrink-0"
+            style={{ color: "var(--color-text-muted)" }}
+          >
+            2026
+          </span>
         </div>
       </section>
 
