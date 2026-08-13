@@ -13,7 +13,7 @@ export function Navbar() {
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md"
-      style={{ backgroundColor: "rgba(32, 32, 35, 0.8)" }}
+      style={{ backgroundColor: "rgba(0, 0, 0, 0.85)" }}
     >
       <div className="mx-auto max-w-[768px] flex items-center justify-between px-6 py-3">
         {/* Logo / Name */}
