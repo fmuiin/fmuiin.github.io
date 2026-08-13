@@ -93,11 +93,12 @@ export default function Home() {
             </p>
             <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
               Built an event management platform from scratch supporting 5+
-              event types, processing 1,000+ registrations per event cycle with
-              3x faster registration flow compared to prior manual process.
+              event types, processing 1,000+ registrations per event cycle —
+              3x faster registration flow compared to the previous
+              WordPress-based event ticketing system.
             </p>
             <ul
-              className="text-sm list-disc pl-5 space-y-1"
+              className="text-sm list-disc pl-5 space-y-1.5"
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
@@ -106,13 +107,14 @@ export default function Home() {
                 automated payment processing
               </li>
               <li>
-                Built a React.js PWA event app with 6 core features (login,
-                booking, rating, agenda, chat, sponsors) improving on-site
-                attendee engagement
+                Built apps.w.media — a React.js PWA to enhance attendee UX
+                during events (login, booking, rating, agenda, chat, sponsors).
+                Designed for Capacitor conversion to native iOS &amp; Android
+                apps
               </li>
               <li>
-                Set up CI/CD pipelines with GitHub Actions, reducing deployment
-                time from hours to minutes with automated testing
+                Set up CI/CD with GitHub Actions, reducing deployment time from
+                hours to minutes with automated testing on every push
               </li>
             </ul>
           </div>
@@ -145,7 +147,7 @@ export default function Home() {
               delivery performance.
             </p>
             <ul
-              className="text-sm list-disc pl-5 space-y-1"
+              className="text-sm list-disc pl-5 space-y-1.5"
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
@@ -192,7 +194,7 @@ export default function Home() {
               CodeIgniter.
             </p>
             <ul
-              className="text-sm list-disc pl-5 space-y-1"
+              className="text-sm list-disc pl-5 space-y-1.5"
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
@@ -238,7 +240,7 @@ export default function Home() {
               classes.
             </p>
             <ul
-              className="text-sm list-disc pl-5 space-y-1"
+              className="text-sm list-disc pl-5 space-y-1.5"
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
