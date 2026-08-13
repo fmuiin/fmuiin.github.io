@@ -102,19 +102,24 @@ export default function Home() {
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
-                Architected a Laravel 10 platform with multi-tier ticketing,
-                dynamic pricing, and Stripe integration — handling 100%
-                automated payment processing
+                Architected tickets.w.media — a Laravel 10 ticketing platform
+                replacing the legacy WordPress-based system. Delivered 3x faster
+                registration flow with multi-tier ticketing, dynamic pricing,
+                and Stripe integration for 100% automated payment processing
               </li>
               <li>
-                Built apps.w.media — a React.js PWA to enhance attendee UX
-                during events (login, booking, rating, agenda, chat, sponsors).
-                Designed for Capacitor conversion to native iOS &amp; Android
-                apps
+                Built apps.w.media — a React.js PWA serving 500+ attendees per
+                event with login, booking, rating, agenda, chat, and sponsor
+                features. Improved attendee experience by ~20% compared to
+                non-app events. Capacitor-ready for native iOS &amp; Android
+                deployment
               </li>
               <li>
-                Set up CI/CD with GitHub Actions, reducing deployment time from
-                hours to minutes with automated testing on every push
+                Set up CI/CD with GitHub Actions — automated testing, linting,
+                and deployment pipelines reducing release cycles from hours to
+                minutes. Also developed custom WordPress plugins from scratch
+                for features unavailable in the ecosystem (lock popup gate for
+                gated content, custom event widgets)
               </li>
             </ul>
           </div>
