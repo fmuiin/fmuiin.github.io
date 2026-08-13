@@ -7,8 +7,8 @@ export const siteConfig = {
     "Fathul Muiin's homepage. Full Stack Software Engineer building scalable software that solves real-world business problems.",
   url: "https://fmuiin.github.io",
   github: "https://github.com/fmuiin",
-  linkedin: "https://linkedin.com/in/fmuiin",
-  email: "fathulmuiin@gmail.com",
+  linkedin: "https://www.linkedin.com/in/fmuiin14/",
+  email: "fmuiin14@gmail.com",
   githubUsername: "fmuiin",
   repoUrl: "https://github.com/fmuiin/fmuiin.github.io",
 };
@@ -27,12 +27,12 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: "LinkedIn",
-    url: "https://linkedin.com/in/fmuiin",
+    url: "https://www.linkedin.com/in/fmuiin14/",
     icon: "linkedin",
   },
   {
     name: "Email",
-    url: "mailto:fathulmuiin@gmail.com",
+    url: "mailto:fmuiin14@gmail.com",
     icon: "mail",
   },
 ];

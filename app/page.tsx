@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 
 export default function Home() {
@@ -9,10 +10,11 @@ export default function Home() {
         className="rounded-lg p-4 mb-8 text-center"
         style={{ backgroundColor: "var(--color-surface)" }}
       >
-        Hello, I&apos;m a full-stack software engineer based in Indonesia!
+        Hello, I&apos;m a full-stack software engineer based in Jakarta,
+        Indonesia!
       </div>
 
-      {/* Name and title */}
+      {/* Name + photo */}
       <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-6">
         <div className="flex-1">
           <h1
@@ -22,14 +24,18 @@ export default function Home() {
             Fathul Muiin
           </h1>
           <p style={{ color: "var(--color-text-muted)" }}>
-            Digital Craftsman ( Developer / Architect / Builder )
+            Digital Craftsman ( Developer / Engineer / Builder )
           </p>
         </div>
-        <div
-          className="w-24 h-24 rounded-full flex items-center justify-center text-4xl shrink-0"
-          style={{ backgroundColor: "var(--color-surface)" }}
-        >
-          &#128187;
+        <div className="w-24 h-24 rounded-full overflow-hidden shrink-0 border-2 border-[var(--color-border)]">
+          <Image
+            src="/images/fathul.png"
+            alt="Fathul Muiin"
+            width={96}
+            height={96}
+            className="w-full h-full object-cover"
+            priority
+          />
         </div>
       </div>
 
@@ -37,13 +43,13 @@ export default function Home() {
       <section className="mb-8">
         <h2 className="section-title">Work</h2>
         <p className="indent" style={{ color: "var(--color-text)" }}>
-          Fathul is a full-stack software engineer with 7+ years of experience
-          building scalable web applications. He specializes in turning complex
-          business requirements into elegant, maintainable solutions using
-          Laravel, Vue.js, React, and cloud technologies. He has a passion for
-          all things launching products, from architecture design all the way to
-          solving real-life problems with code. When not coding, he loves
-          exploring AI integration patterns and contributing to open source.
+          Fathul is a Full-Stack Software Engineer with 5+ years of experience
+          building web applications, business systems, and scalable digital
+          products. He has strong expertise in PHP, Laravel, JavaScript, Node.js,
+          Vue.js, and React, with hands-on experience delivering event ticketing
+          platforms, high-traffic media systems, and client-focused web
+          solutions. AWS Certified Cloud Practitioner, currently expanding into
+          cloud-based architecture and modern application development.
         </p>
         <div className="mt-4 text-center">
           <Link
@@ -64,24 +70,47 @@ export default function Home() {
         <h2 className="section-title">Bio</h2>
         <div className="space-y-2">
           <div className="flex">
-            <span className="bio-year">2016</span>
-            <span>Started career as Junior Developer at Digital Agency Co</span>
+            <span className="bio-year">2014</span>
+            <span>
+              Enrolled in Informatics Engineering at Institute of Technology
+              Nurul Fikri
+            </span>
           </div>
           <div className="flex">
             <span className="bio-year">2018</span>
-            <span>Backend Developer at StartupHub — payment systems, real-time features</span>
+            <span>
+              Completed Bachelor&apos;s Degree in Informatics Engineering.
+              Attended Web Development Bootcamp at Glints x Binar Academy
+            </span>
+          </div>
+          <div className="flex">
+            <span className="bio-year">2019</span>
+            <span>Web Developer at Merry Riana Group</span>
           </div>
           <div className="flex">
             <span className="bio-year">2020</span>
-            <span>Full Stack Developer at TechCorp Solutions — AI analytics, enterprise APIs</span>
+            <span>
+              Web Developer at Rynest Technology Indomedia — client-focused web
+              apps for education, certification &amp; healthcare
+            </span>
           </div>
           <div className="flex">
-            <span className="bio-year">2022</span>
-            <span>Senior Full Stack Engineer at W.Media — enterprise ticketing, microservices</span>
+            <span className="bio-year">2021</span>
+            <span>
+              Backend Developer at MNC Portal Indonesia — high-traffic digital
+              media platforms across multiple brands
+            </span>
           </div>
           <div className="flex">
-            <span className="bio-year">Present</span>
-            <span>Building scalable software &amp; contributing to open source</span>
+            <span className="bio-year">2023</span>
+            <span>
+              Senior Software Engineer at W.Media Global (Singapore) — event
+              management &amp; ticketing platform
+            </span>
+          </div>
+          <div className="flex">
+            <span className="bio-year">2026</span>
+            <span>AWS Certified Cloud Practitioner (CLF-C02)</span>
           </div>
         </div>
       </section>
@@ -90,8 +119,8 @@ export default function Home() {
       <section className="mb-8">
         <h2 className="section-title">I ♥</h2>
         <p style={{ color: "var(--color-text)" }}>
-          System Design, AI/ML Integration, Cloud Architecture, Open Source,
-          Clean Code, Domain-Driven Design, Developer Experience, Mentoring
+          Cloud Architecture, Scalable Systems, Laravel, Open Source, CI/CD,
+          Mentoring, Community Speaking, Building Digital Products
         </p>
       </section>
 
@@ -110,22 +139,22 @@ export default function Home() {
             <span>fmuiin on GitHub</span>
           </a>
           <a
-            href="https://linkedin.com/in/fmuiin"
+            href="https://www.linkedin.com/in/fmuiin14/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors hover:no-underline"
             style={{ color: "var(--color-primary)" }}
           >
             <span>&#64;</span>
-            <span>fmuiin on LinkedIn</span>
+            <span>fmuiin14 on LinkedIn</span>
           </a>
           <a
-            href="mailto:fathulmuiin@gmail.com"
+            href="mailto:fmuiin14@gmail.com"
             className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors hover:no-underline"
             style={{ color: "var(--color-primary)" }}
           >
             <span>&#9993;</span>
-            <span>fathulmuiin@gmail.com</span>
+            <span>fmuiin14@gmail.com</span>
           </a>
         </div>
       </section>
