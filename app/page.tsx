@@ -198,25 +198,31 @@ export default function Home() {
               Rynest Technology Indomedia &middot; Depok &middot; On-site
             </p>
             <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
-              Delivered 4+ client web projects on time across education,
-              certification, and healthcare sectors with Laravel &amp;
-              CodeIgniter.
+              Shipped 4 client projects across 3 sectors (education,
+              professional certification, healthcare) with 100% on-time
+              delivery, serving thousands of end-users.
             </p>
             <ul
               className="text-sm list-disc pl-5 space-y-1.5"
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
-                Built production-ready web apps for Qonstanta, LSP Perasuransian
-                Syariah, and Kitamedicare from requirements to deployment
+                Built qonstanta.net — an online tutoring platform (LMS) with
+                live classes, video conferencing, and 1M+ practice questions.
+                Supported 500+ active students and contributed to university
+                admissions at top institutions (UI, ITB, UNPAD)
               </li>
               <li>
-                Designed and developed landing pages and admin workflows for
-                client campaigns and digital initiatives
+                Developed LSP Perasuransian Syariah — a professional
+                certification platform for sharia insurance agents as mandated
+                by OJK, digitalizing registration and exam workflows. Reduced
+                manual processing time by ~70% for 100+ candidates per batch
               </li>
               <li>
-                Maintained websites ensuring seamless functionality, security,
-                and consistent brand alignment across clients
+                Built Kitamedicare — a healthcare web platform with appointment
+                booking and admin workflows, streamlining patient-provider
+                scheduling. Handled 200+ monthly bookings and reduced clinic
+                admin workload by ~50%
               </li>
             </ul>
           </div>
