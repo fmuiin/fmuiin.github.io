@@ -335,17 +335,35 @@ export default function Home() {
       {/* Certifications */}
       <section className="mb-8">
         <h2 className="section-title">Certifications</h2>
-        <div className="flex items-baseline justify-between gap-4">
-          <span style={{ color: "var(--color-heading)" }}>
-            AWS Certified Cloud Practitioner (CLF-C02)
-          </span>
-          <span
-            className="text-sm shrink-0"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            2026
-          </span>
-        </div>
+        <a
+          href="https://www.credly.com/badges/4a070cec-0302-4025-ad9b-9213d74f45c1/linked_in_profile"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-4 p-4 rounded-xl no-underline hover:no-underline transition-opacity hover:opacity-90"
+          style={{ backgroundColor: "var(--color-surface)" }}
+        >
+          <Image
+            src="https://images.credly.com/size/340x340/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png"
+            alt="AWS Certified Cloud Practitioner Badge"
+            width={72}
+            height={72}
+            className="shrink-0"
+          />
+          <div>
+            <p
+              className="font-semibold"
+              style={{ color: "var(--color-heading)" }}
+            >
+              AWS Certified Cloud Practitioner
+            </p>
+            <p
+              className="text-sm"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              Amazon Web Services (CLF-C02) &middot; 2026
+            </p>
+          </div>
+        </a>
       </section>
 
       {/* I ♥ section */}
