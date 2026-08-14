@@ -118,8 +118,8 @@ export default function Home() {
                 Set up CI/CD with GitHub Actions — automated testing, linting,
                 and deployment pipelines reducing release cycles from hours to
                 minutes. Also developed custom WordPress plugins from scratch
-                for features unavailable in the ecosystem (lock popup gate for
-                gated content, custom event widgets)
+                for features unavailable in the ecosystem (e.g. lock popup gate
+                for gated content, custom event widgets)
               </li>
             </ul>
           </div>
