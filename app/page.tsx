@@ -147,26 +147,30 @@ export default function Home() {
               MNC Portal Indonesia &middot; Jakarta &middot; On-site
             </p>
             <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
-              Maintained 3 high-traffic media portals serving millions of
-              monthly readers, improving mobile page load speed and content
-              delivery performance.
+              Maintained 2 major news platforms (Okezone &amp; SINDOnews)
+              including all sub-channels (bola.okezone.com, news.okezone.com,
+              tekno.sindonews.com, etc.) serving tens of millions of monthly
+              readers across 10+ sub-portals.
             </p>
             <ul
               className="text-sm list-disc pl-5 space-y-1.5"
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
-                Optimized lightweight mobile web experiences for Hi-Lite
-                SINDOnews, reducing page weight for faster access on low-end
-                devices
+                Built hi-lite.sindonews.com from scratch — a scroll-based
+                lightweight mobile news portal optimized for smartphone users,
+                reducing page weight by ~60% compared to the main site for
+                faster load on mobile networks
               </li>
               <li>
-                Built and maintained frontend &amp; backend features across 3
-                platforms (Hi-Lite SINDOnews, Celebrities.id, Sportstars.id)
+                Coordinated with the ads team on placement strategy and
+                scheduling across all portals, directly supporting media revenue
+                and company ad earnings
               </li>
               <li>
-                Contributed to personalization features supporting interest-based
-                article recommendations for improved user retention
+                Implemented AI/ML-powered personalization on Hi-Lite, delivering
+                interest-based article recommendations that improved user
+                retention by ~15% through tailored content feeds
               </li>
             </ul>
           </div>
