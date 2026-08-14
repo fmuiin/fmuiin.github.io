@@ -16,7 +16,7 @@ export const siteConfig = {
 export const navItems: NavItem[] = [
   { label: "Works", href: "/works" },
   { label: "Posts", href: "/posts" },
-  { label: "About", href: "/uses" },
+  { label: "About", href: "/about" },
 ];
 
 export const socialLinks: SocialLink[] = [
