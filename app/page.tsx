@@ -250,25 +250,31 @@ export default function Home() {
               Merry Riana Group &middot; Jakarta &middot; On-site
             </p>
             <p className="text-sm mb-2" style={{ color: "var(--color-text)" }}>
-              Supported 4 web platforms and built 20+ conversion-focused landing
-              pages driving lead generation for seminars, e-commerce, and digital
-              classes.
+              Supported the digital ecosystem of Merry Riana — a brand reaching
+              millions of followers across 6+ web platforms. Built 20+
+              conversion-focused landing pages generating thousands of leads for
+              seminars, e-commerce, and digital learning programs.
             </p>
             <ul
               className="text-sm list-disc pl-5 space-y-1.5"
               style={{ color: "var(--color-text-muted)" }}
             >
               <li>
-                Developed landing pages with AJAX-based lead capture integration,
-                streamlining data submission for marketing campaigns
+                Developed high-converting landing pages with AJAX-based lead
+                capture for marketing campaigns — supporting lead generation
+                that contributed to 40,000+ students enrolled across the
+                ecosystem
               </li>
               <li>
-                Maintained and enhanced merryriana.com, merryrianashop.com,
-                merryrianalearningcentre.com, and leads.merryriana.com
+                Maintained and enhanced merryriana.com (personal brand),
+                merryrianalearningcentre.com (multi-branch learning centres),
+                merryrianaevents.com (LifeCamp &amp; Leadership Camp), and the
+                internal leads system
               </li>
               <li>
-                Ensured stable functionality, consistent branding, and smooth UX
-                across all platforms supporting marketing operations
+                Ensured 99%+ uptime, consistent branding, and smooth UX across
+                all platforms — directly supporting revenue from seminar
+                registrations, merchandise sales, and digital class enrollments
               </li>
             </ul>
           </div>
