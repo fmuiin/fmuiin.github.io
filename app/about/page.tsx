@@ -243,10 +243,25 @@ export default function AboutPage() {
               className="font-medium text-sm"
               style={{ color: "var(--color-heading)" }}
             >
-              Speaker — Dicoding Expert Session 2024
+              Contributor — Dicoding Bootcamp Batch 11
             </p>
             <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-              Shared engineering insights with the Dicoding developer community
+              Mentored and supported participants throughout the program
+            </p>
+          </div>
+          <div
+            className="p-3 rounded-lg"
+            style={{ backgroundColor: "var(--color-surface)" }}
+          >
+            <p
+              className="font-medium text-sm"
+              style={{ color: "var(--color-heading)" }}
+            >
+              Contributor — SMK/MAK Teacher Acceleration Scholarship (Dicoding)
+            </p>
+            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Supported educators in their learning journey for technology
+              education in Indonesia
             </p>
           </div>
           <div
@@ -261,7 +276,8 @@ export default function AboutPage() {
               Dicoding)
             </p>
             <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-              Contributed to curriculum and mentoring for aspiring developers
+              Fully-funded 900+ hour intensive program empowering Indonesian
+              students with Front-End, Back-End, and Machine Learning skills
             </p>
           </div>
           <div
@@ -272,7 +288,21 @@ export default function AboutPage() {
               className="font-medium text-sm"
               style={{ color: "var(--color-heading)" }}
             >
-              Contributor — Bangkit Academy 2024 &amp; 2025
+              Speaker — Dicoding Expert Session 2024
+            </p>
+            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Shared engineering insights with the Dicoding developer community
+            </p>
+          </div>
+          <div
+            className="p-3 rounded-lg"
+            style={{ backgroundColor: "var(--color-surface)" }}
+          >
+            <p
+              className="font-medium text-sm"
+              style={{ color: "var(--color-heading)" }}
+            >
+              Contributor — Bangkit Academy 2024 &amp; 2025 Batch 1 &amp; 2
             </p>
             <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
               Supported Google-backed program producing job-ready tech talent in
@@ -287,10 +317,25 @@ export default function AboutPage() {
               className="font-medium text-sm"
               style={{ color: "var(--color-heading)" }}
             >
+              Speaker — Dicoding Expert Session
+            </p>
+            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Pembicara pada sesi Dicoding Expert Session
+            </p>
+          </div>
+          <div
+            className="p-3 rounded-lg"
+            style={{ backgroundColor: "var(--color-surface)" }}
+          >
+            <p
+              className="font-medium text-sm"
+              style={{ color: "var(--color-heading)" }}
+            >
               Speaker — Remote Worker Community
             </p>
             <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-              Shared experience on remote engineering workflows and career growth
+              Topic: Laravel 9 CRUD API &amp; Enhance Database Performance using
+              Redis
             </p>
           </div>
           <div
@@ -308,6 +353,45 @@ export default function AboutPage() {
               skills
             </p>
           </div>
+          <div
+            className="p-3 rounded-lg"
+            style={{ backgroundColor: "var(--color-surface)" }}
+          >
+            <p
+              className="font-medium text-sm"
+              style={{ color: "var(--color-heading)" }}
+            >
+              Speaker — Mentoring Candidate College
+            </p>
+            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Guided students preparing for their college journey
+            </p>
+          </div>
+          <div
+            className="p-3 rounded-lg"
+            style={{ backgroundColor: "var(--color-surface)" }}
+          >
+            <p
+              className="font-medium text-sm"
+              style={{ color: "var(--color-heading)" }}
+            >
+              Speaker — Glints ExpertClass: Web Development with Laravel
+            </p>
+            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+              Taught Laravel framework from scratch for web development
+            </p>
+          </div>
+        </div>
+        <div className="mt-4 text-center">
+          <a
+            href="https://www.linkedin.com/in/fmuiin14/details/featured/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-sm no-underline hover:underline"
+            style={{ color: "var(--color-primary)" }}
+          >
+            View all certificates on LinkedIn &rarr;
+          </a>
         </div>
       </section>
 
