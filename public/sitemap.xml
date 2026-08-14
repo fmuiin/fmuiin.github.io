@@ -61,20 +61,8 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://fmuiin.github.io/posts/building-scalable-apis-with-laravel</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://fmuiin.github.io/posts/ai-integration-patterns</loc>
-    <lastmod>2024-01-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://fmuiin.github.io/posts/docker-development-workflow</loc>
-    <lastmod>2023-12-20</lastmod>
+    <loc>https://fmuiin.github.io/posts/mastering-core-programming-principles</loc>
+    <lastmod>2025-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
