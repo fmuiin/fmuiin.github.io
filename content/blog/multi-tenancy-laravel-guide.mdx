@@ -1,53 +1,53 @@
 ---
-title: "Multi-Tenancy di Laravel: Panduan Praktis untuk SaaS Architecture"
-excerpt: "Membangun aplikasi SaaS yang melayani banyak tenant? Ini panduan lengkap implementasi multi-tenancy di Laravel — dari konsep sampai production."
+title: "Multi-Tenancy in Laravel: A Practical Guide for SaaS Architecture"
+excerpt: "Building a SaaS app that serves multiple tenants? Here's a complete guide to implementing multi-tenancy in Laravel — from concept to production."
 date: "2025-07-20"
 tags: ["laravel", "multi-tenancy", "saas", "architecture", "php"]
 ---
 
-Kalau kamu pernah build aplikasi yang harus melayani banyak client/organisasi dalam satu codebase — selamat, kamu sudah masuk ke dunia **multi-tenancy**.
+If you've ever built an application that needs to serve multiple clients or organizations within a single codebase — welcome to the world of **multi-tenancy**.
 
-Multi-tenancy adalah arsitektur di mana satu instance aplikasi melayani banyak tenant (client/organisasi), dengan data yang terisolasi satu sama lain.
+Multi-tenancy is an architecture where a single application instance serves multiple tenants (clients/organizations), with data isolated from one another.
 
-Artikel ini bahas konsep, strategi, dan implementasi praktis di Laravel.
+This article covers the concept, strategies, and practical implementation in Laravel.
 
-## Kenapa Multi-Tenancy?
+## Why Multi-Tenancy?
 
-Bayangkan kamu build sistem ticketing. Tanpa multi-tenancy, setiap client butuh deployment terpisah — server terpisah, database terpisah, maintenance terpisah. Mahal dan tidak scalable.
+Imagine you're building a ticketing system. Without multi-tenancy, each client needs a separate deployment — separate server, separate database, separate maintenance. Expensive and not scalable.
 
-Dengan multi-tenancy:
+With multi-tenancy:
 
-- **1 codebase** untuk semua client
+- **1 codebase** for all clients
 - **Cost-efficient** — shared infrastructure
-- **Easier maintenance** — update sekali, semua tenant dapat
-- **Scalable** — onboard tenant baru dalam hitungan menit, bukan hari
+- **Easier maintenance** — update once, all tenants get it
+- **Scalable** — onboard a new tenant in minutes, not days
 
-## 3 Strategi Database Multi-Tenancy
+## 3 Database Strategies for Multi-Tenancy
 
 ### 1. Shared Database, Shared Schema (Column-based)
 
-Semua tenant pakai 1 database, 1 tabel. Dibedakan pakai kolom `tenant_id`.
+All tenants use 1 database, 1 table. Differentiated by a `tenant_id` column.
 
 ```php
-// Setiap query harus filter by tenant_id
+// Every query must filter by tenant_id
 $orders = Order::where('tenant_id', auth()->user()->tenant_id)->get();
 ```
 
-**Pros:** Simple, murah, gampang maintain.
+**Pros:** Simple, cheap, easy to maintain.
 
-**Cons:** Risiko data leak kalau lupa filter. Perlu disiplin tinggi.
+**Cons:** Risk of data leakage if you forget to filter. Requires high discipline.
 
 ### 2. Shared Database, Separate Schema
 
-Satu database, tapi tiap tenant punya schema sendiri (PostgreSQL-friendly).
+One database, but each tenant has its own schema (PostgreSQL-friendly).
 
-**Pros:** Isolasi lebih baik dari opsi 1.
+**Pros:** Better isolation than option 1.
 
-**Cons:** Migrasi lebih kompleks. Kurang ideal di MySQL.
+**Cons:** More complex migrations. Not ideal for MySQL.
 
 ### 3. Separate Database per Tenant
 
-Setiap tenant punya database sendiri. Isolasi penuh.
+Each tenant gets their own database. Full isolation.
 
 ```php
 // Switch database connection per tenant
@@ -55,27 +55,27 @@ Config::set('database.connections.tenant.database', $tenant->database_name);
 DB::purge('tenant');
 ```
 
-**Pros:** Isolasi sempurna. Backup/restore per tenant mudah.
+**Pros:** Perfect isolation. Per-tenant backup/restore is easy.
 
-**Cons:** Lebih mahal. Migrasi harus jalan di semua database.
+**Cons:** More expensive. Migrations must run across all databases.
 
-## Strategi Mana yang Dipilih?
+## Which Strategy to Choose?
 
-| Kriteria | Column-based | Separate DB |
+| Criteria | Column-based | Separate DB |
 |----------|-------------|-------------|
-| Cost | Murah | Mahal |
-| Isolasi data | Rendah | Tinggi |
-| Skalabilitas | Tinggi | Medium |
-| Kompleksitas | Rendah | Tinggi |
-| Cocok untuk | SaaS startup, MVP | Enterprise, regulated industry |
+| Cost | Low | High |
+| Data isolation | Low | High |
+| Scalability | High | Medium |
+| Complexity | Low | High |
+| Best for | SaaS startups, MVPs | Enterprise, regulated industries |
 
-**Rule of thumb:** Mulai dari column-based. Migrasi ke separate database ketika ada kebutuhan compliance atau client enterprise yang butuh isolasi penuh.
+**Rule of thumb:** Start with column-based. Migrate to separate databases when you have compliance requirements or enterprise clients that need full isolation.
 
-## Implementasi di Laravel
+## Implementation in Laravel
 
-### Pendekatan 1: Global Scope (Column-based)
+### Approach 1: Global Scope (Column-based)
 
-Cara paling simple — pakai Global Scope untuk auto-filter tenant.
+The simplest way — use a Global Scope to auto-filter by tenant.
 
 ```php
 // app/Models/Traits/BelongsToTenant.php
@@ -98,7 +98,7 @@ trait BelongsToTenant
 }
 ```
 
-Pakai di model:
+Use it in your model:
 
 ```php
 class Order extends Model
@@ -106,13 +106,13 @@ class Order extends Model
     use BelongsToTenant;
 }
 
-// Sekarang auto-filtered, tanpa perlu manual where
-$orders = Order::all(); // sudah per-tenant
+// Now auto-filtered, no manual where needed
+$orders = Order::all(); // already per-tenant
 ```
 
-### Pendekatan 2: Middleware + Tenant Resolution
+### Approach 2: Middleware + Tenant Resolution
 
-Resolve tenant dari subdomain, header, atau URL path.
+Resolve the tenant from a subdomain, header, or URL path.
 
 ```php
 // app/Http/Middleware/ResolveTenant.php
@@ -130,16 +130,16 @@ class ResolveTenant
 }
 ```
 
-### Pendekatan 3: Package (stancl/tenancy)
+### Approach 3: Package (stancl/tenancy)
 
-Untuk separate database approach, package `stancl/tenancy` sudah handle banyak hal:
+For the separate database approach, the `stancl/tenancy` package handles a lot out of the box:
 
 ```bash
 composer require stancl/tenancy
 php artisan tenancy:install
 ```
 
-Package ini handle:
+This package handles:
 - Automatic database creation per tenant
 - Database switching via middleware
 - Tenant-aware migrations
@@ -148,19 +148,19 @@ Package ini handle:
 
 ## Best Practices
 
-### 1. Jangan Pernah Trust Frontend untuk Tenant Filtering
+### 1. Never Trust the Frontend for Tenant Filtering
 
 ```php
-// JANGAN: tenant_id dari request
+// DON'T: tenant_id from the request
 $orders = Order::where('tenant_id', $request->tenant_id)->get();
 
-// LAKUKAN: tenant_id dari auth/session
+// DO: tenant_id from auth/session
 $orders = Order::where('tenant_id', auth()->user()->tenant_id)->get();
 ```
 
-### 2. Testing Multi-Tenant
+### 2. Test Multi-Tenant Scenarios
 
-Selalu test skenario cross-tenant access:
+Always test cross-tenant access:
 
 ```php
 public function test_user_cannot_access_other_tenant_data()
@@ -176,16 +176,16 @@ public function test_user_cannot_access_other_tenant_data()
 }
 ```
 
-### 3. Cache Harus Tenant-Aware
+### 3. Cache Must Be Tenant-Aware
 
 ```php
-// Prefix cache key dengan tenant_id
+// Prefix cache key with tenant_id
 Cache::tags(["tenant_{$tenantId}"])->remember("orders", 3600, fn() => 
     Order::all()
 );
 ```
 
-### 4. Queue Jobs Harus Bawa Context Tenant
+### 4. Queue Jobs Must Carry Tenant Context
 
 ```php
 class ProcessOrder implements ShouldQueue
@@ -199,26 +199,26 @@ class ProcessOrder implements ShouldQueue
 
     public function handle()
     {
-        // Set tenant context sebelum proses
+        // Set tenant context before processing
         app()->instance('current_tenant', Tenant::find($this->tenantId));
     }
 }
 ```
 
-## Kapan TIDAK Pakai Multi-Tenancy?
+## When NOT to Use Multi-Tenancy
 
-- Aplikasi kecil dengan 1-5 client → overkill
-- Client punya requirement sangat berbeda satu sama lain → better separate deployments
-- Regulasi ketat yang mengharuskan physical separation → separate infrastructure
+- Small app with 1-5 clients → overkill
+- Clients have vastly different requirements → better as separate deployments
+- Strict regulations requiring physical separation → separate infrastructure
 
-## Kesimpulan
+## Conclusion
 
-Multi-tenancy bukan hanya soal teknis — ini keputusan arsitektur yang berdampak ke cost, security, dan scalability produk kamu.
+Multi-tenancy isn't just a technical choice — it's an architectural decision that impacts cost, security, and scalability of your product.
 
-Mulai simple (column-based), scale up kalau butuh (separate DB), dan selalu prioritaskan **data isolation** di setiap layer.
+Start simple (column-based), scale up when needed (separate DB), and always prioritize **data isolation** at every layer.
 
-Yang paling penting: test cross-tenant access dari hari pertama. Data leak antar tenant = game over untuk trust client.
+Most importantly: test cross-tenant access from day one. Data leakage between tenants = game over for client trust.
 
 ---
 
-*Ada pertanyaan soal implementasi multi-tenancy? Reach out via [LinkedIn](https://www.linkedin.com/in/fmuiin14/).*
+*Got questions about multi-tenancy implementation? Reach out via [LinkedIn](https://www.linkedin.com/in/fmuiin14/).*
