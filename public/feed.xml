@@ -5,13 +5,13 @@
     <link>https://fmuiin.github.io/posts</link>
     <description>Full Stack Software Engineer building scalable software that solves real-world business problems.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 15 Aug 2026 15:59:05 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 15 Aug 2026 16:08:25 GMT</lastBuildDate>
     <atom:link href="https://fmuiin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>Multi-Tenancy di Laravel: Panduan Praktis untuk SaaS Architecture</title>
+      <title>Multi-Tenancy in Laravel: A Practical Guide for SaaS Architecture</title>
       <link>https://fmuiin.github.io/posts/multi-tenancy-laravel-guide</link>
       <guid>https://fmuiin.github.io/posts/multi-tenancy-laravel-guide</guid>
-      <description>Membangun aplikasi SaaS yang melayani banyak tenant? Ini panduan lengkap implementasi multi-tenancy di Laravel — dari konsep sampai production.</description>
+      <description>Building a SaaS app that serves multiple tenants? Here&apos;s a complete guide to implementing multi-tenancy in Laravel — from concept to production.</description>
       <pubDate>Sun, 20 Jul 2025 00:00:00 GMT</pubDate>
     </item>
     <item>
