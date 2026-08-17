@@ -382,12 +382,13 @@ export default function Home() {
             className="flex items-center gap-4 p-4 rounded-xl no-underline hover:no-underline transition-opacity hover:opacity-90"
             style={{ backgroundColor: "var(--color-surface)" }}
           >
-            <div
-              className="w-[72px] h-[72px] rounded-full flex items-center justify-center shrink-0 text-2xl"
-              style={{ backgroundColor: "var(--color-background)" }}
-            >
-              ☁️
-            </div>
+            <Image
+              src="https://images.credly.com/size/680x680/images/3c923d13-42da-4765-995d-59f3030e042a/blob"
+              alt="Create Your First Gemini Enterprise Application Badge"
+              width={72}
+              height={72}
+              className="shrink-0"
+            />
             <div>
               <p
                 className="font-semibold"
