@@ -314,7 +314,7 @@ export default function Home() {
               className="text-sm"
               style={{ color: "var(--color-accent)" }}
             >
-              Institute of Technology Nurul Fikri
+              Institute of Technology Nurul Fikri &middot; GPA 3.58
             </p>
           </div>
           <div>
