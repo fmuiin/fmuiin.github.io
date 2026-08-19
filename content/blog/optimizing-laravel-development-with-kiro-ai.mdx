@@ -1,0 +1,773 @@
+---
+title: "Optimizing Laravel Development with Kiro AI: A W Media Ticketing System Case Study"
+excerpt: "How to leverage Kiro — an AI-powered development environment — to accelerate development and maintenance of a production-scale Laravel application handling payments, SSO, and REST APIs."
+date: "2026-08-17"
+tags: ["laravel", "kiro", "ai", "developer-tools", "productivity"]
+---
+
+Building and maintaining production-scale Laravel applications is no simple task. Especially when the system handles payment processing, multi-platform SSO, and REST APIs for mobile apps — exactly what **W Media Ticketing System** does.
+
+W Media Ticketing System is a Laravel 11-based event and ticketing management platform that manages the entire event lifecycle: event creation, ticket sales (multi-currency, Stripe integration), attendee check-in, and lead generation. It integrates with 9+ W Media platforms through SSO and provides REST APIs for React/mobile applications.
+
+This article explores how **Kiro** — an AI-powered development environment built on VS Code — can be leveraged to accelerate development and maintenance of a project like this. We'll cover each Kiro feature in detail, with real-world usage examples in the context of W Media Ticketing System.
+
+---
+
+## 1. Spec (Requirements → Design → Tasks)
+
+### Feature Overview
+
+Spec is Kiro's structured workflow feature that formalizes the development process into three stages:
+
+1. **Requirements** — Define what will be built, acceptance criteria, and constraints
+2. **Design** — Plan the architecture, data model, API contract, and technical decisions
+3. **Tasks** — Break down implementation into atomic steps that Kiro can execute sequentially
+
+Specs are stored in the `.kiro/specs/` folder and can reference other project files (like OpenAPI specs or database schemas) using `#[[file:relative_path]]` syntax.
+
+Advantages of Spec over jumping straight into code:
+- Prevents over-engineering by keeping scope clearly defined
+- Documents design decisions
+- Tasks can be reviewed before Kiro executes them
+- Iterative — you can revise requirements without losing context
+
+### Usage Example: Implementing an "Interactive Floor Plan" Feature
+
+W Media Ticketing System has a planned "Floor Plan" feature to display an interactive venue map with exhibitor booth positions. This is a complex feature involving admin CRUD, mobile app APIs, and interactive map rendering.
+
+**Step 1: Create a New Spec**
+
+In Kiro, open the command palette and select "New Spec", or ask directly in chat:
+
+```
+I want to implement a Floor Plan feature for the event app.
+This feature allows admins to upload venue maps, mark booth positions,
+and attendees can view an interactive map in the mobile app via API.
+
+Reference: #[[file:tickets.md]]
+```
+
+**Step 2: Kiro Generates Requirements**
+
+Kiro analyzes the project and generates a requirements document:
+
+```markdown
+# Floor Plan Feature - Requirements
+
+## User Stories
+1. As an admin, I want to upload a floor plan image per event
+2. As an admin, I want to mark booth positions on the floor plan with pins
+3. As an admin, I want to assign exhibitors to booth positions
+4. As an attendee (via API), I want to view the floor plan with booth positions
+
+## Acceptance Criteria
+- Admin can upload an image (JPG/PNG, max 5MB) per event
+- Admin can add/edit/delete booth pins (x, y coordinates + label)
+- Each pin can be linked to an exhibitor
+- API endpoint returns floor plan image URL + array of pins
+- Pins contain: position (x%, y%), exhibitor info, booth number
+
+## Constraints
+- Follow existing pattern: event relation via post_id
+- Admin routes: /admin/apps/events/{event_id}/floorplan
+- API routes: /api/apps/events/{event_id}/floorplan
+- Auth: Admin (web session), API (JWT Bearer)
+
+## Out of Scope
+- Real-time booth availability
+- 3D floor plan
+- Indoor navigation
+```
+
+**Step 3: Kiro Generates the Design**
+
+```markdown
+# Floor Plan Feature - Design
+
+## Database Schema
+
+### Table: floor_plans
+| Column | Type | Description |
+|--------|------|-------------|
+| id | bigint (PK) | Auto-increment |
+| event_id | varchar | FK to events.post_id |
+| image_path | varchar | Floor plan image path |
+| name | varchar | Floor plan name (e.g., "Hall A") |
+| created_at | timestamp | |
+| updated_at | timestamp | |
+
+### Table: floor_plan_booths
+| Column | Type | Description |
+|--------|------|-------------|
+| id | bigint (PK) | Auto-increment |
+| floor_plan_id | bigint | FK to floor_plans.id |
+| exhibitor_id | bigint (nullable) | FK to exhibitors |
+| booth_number | varchar | Booth number |
+| label | varchar | Display label |
+| position_x | decimal(5,2) | X position as percentage |
+| position_y | decimal(5,2) | Y position as percentage |
+| metadata | json (nullable) | Additional data |
+
+## API Contract
+
+### GET /api/apps/events/{event_id}/floorplan
+Response:
+{
+  "data": [{
+    "id": 1,
+    "name": "Hall A",
+    "image_url": "https://...",
+    "booths": [{
+      "id": 1,
+      "booth_number": "A-01",
+      "label": "Company XYZ",
+      "position": { "x": 25.5, "y": 40.2 },
+      "exhibitor": { "id": 1, "name": "...", "logo": "..." }
+    }]
+  }]
+}
+
+## Architecture Decisions
+- Use percentage-based positioning (not pixels) for responsiveness
+- Images stored in storage/app/public/floorplans/
+- Follow existing FloorplanController pattern already in the project
+```
+
+**Step 4: Kiro Generates Tasks**
+
+```markdown
+# Floor Plan Feature - Tasks
+
+- [ ] 1. Create migration for floor_plans table
+- [ ] 2. Create migration for floor_plan_booths table
+- [ ] 3. Create FloorPlan Model with Event relation
+- [ ] 4. Create FloorPlanBooth Model with relations
+- [ ] 5. Create FloorplanAdminController for CRUD (admin web)
+- [ ] 6. Create Blade views for floor plan management
+- [ ] 7. Create API FloorplanController (GET endpoint)
+- [ ] 8. Register routes in web.php and api.php
+- [ ] 9. Add menu item to admin sidebar
+- [ ] 10. Run migration and test endpoints
+```
+
+Kiro then executes tasks one by one sequentially, ensuring each step builds upon the previous one.
+
+---
+
+## 2. Steering
+
+### Feature Overview
+
+Steering is a mechanism for providing additional instructions and context to Kiro that apply across all (or some) interactions. Steering files are stored in `.kiro/steering/*.md` and can be configured as:
+
+- **Always included** (default) — Active in every interaction
+- **Conditional (fileMatch)** — Active only when specific files are read into context
+- **Manual** — Active only when the user explicitly includes it via `#` in chat
+
+Steering can reference other files using `#[[file:relative_path]]`, so documents like API specs or database schemas can influence implementation.
+
+Think of it as "coding guidelines" that Kiro always remembers every time it writes or modifies code.
+
+### Usage Example: Enforcing Project Conventions
+
+W Media Ticketing System has several unique conventions that must always be followed:
+
+**File: `.kiro/steering/project-conventions.md`**
+
+```markdown
+# W Media Ticketing System - Project Conventions
+
+## Database Conventions
+
+1. **Event Foreign Key**: All tables related to Event MUST use the `event_id`
+   column referencing `events.post_id` (VARCHAR), NOT `events.id`.
+   This is because event data is synced from WordPress.
+
+2. **Yearly Tables**: For high-volume transactional data, use the per-year
+   table pattern. Example: `orders` (legacy), `orders_2026` (year 2026).
+   Each yearly table has its own Model (Order, Order2026).
+
+3. **Soft Delete**: All transactional models (Order, Customer) MUST use the
+   SoftDeletes trait and a `deleted_by` column for tracking who deleted.
+
+4. **UUID**: The `users` table uses UUID as primary key.
+   Use the `HasUuids` trait from Laravel.
+
+## API Conventions
+
+1. **Authentication**:
+   - Web routes: Session-based auth + Spatie roles middleware
+   - API routes: JWT Bearer Token (tymon/jwt-auth)
+   - Public API: X-API-Key header
+
+2. **Response Format**: All API responses must use Laravel API Resources
+   with a `data` key wrapper.
+
+3. **Route Naming**:
+   - Admin web: `/admin/{resource}`
+   - Admin apps: `/admin/apps/events/{event_id}/{feature}`
+   - API: `/api/{resource}` or `/api/apps/events/{event_id}/{feature}`
+
+## Payment Conventions
+
+1. **Currency**: 14 currencies supported. Currency stored as ISO 4217 code
+   (uppercase string, e.g., "USD", "SGD").
+
+2. **Payment Method**: Stored as comma-separated string in ticket_categories
+   (e.g., "card,bank_transfer"). Parse using explode(',', $value).
+
+3. **Amount**: All amounts stored in smallest unit ONLY for Stripe (cents).
+   In the database, store in normal units (e.g., 100.00 not 10000).
+
+## Frontend Conventions
+
+1. **Admin Panel**: Uses AdminLTE 3 + Bootstrap 5. All admin pages extend
+   the `layouts.admin` layout.
+
+2. **DataTables**: All listing pages use Yajra DataTables with server-side
+   processing.
+
+3. **Form Validation**: Client-side validation uses jQuery Validate,
+   server-side uses Laravel Form Request.
+
+## Reference
+- Project documentation: #[[file:tickets.md]]
+```
+
+**File: `.kiro/steering/api-development.md`** (Conditional — active when editing API files)
+
+```markdown
+---
+inclusion: fileMatch
+fileMatchPattern: "app/Http/Controllers/Api/**"
+---
+
+# API Development Guidelines
+
+When developing API controllers:
+
+1. All API controllers MUST extend `Controller` and use constructor injection
+2. Success response: `response()->json(['data' => $data])`
+3. Error response: `response()->json(['error' => $message], $statusCode)`
+4. Use `auth('api')` to get the current user in JWT-protected routes
+5. Validation via `$request->validate([...])` inline or Form Request class
+6. Rate limiting is handled at the middleware level — no need to implement in controllers
+
+## Existing API Pattern Reference
+#[[file:app/Http/Controllers/Api/EventController.php]]
+```
+
+**File: `.kiro/steering/migration-rules.md`** (Conditional — active when creating migrations)
+
+```markdown
+---
+inclusion: fileMatch
+fileMatchPattern: "database/migrations/**"
+---
+
+# Migration Rules
+
+1. Migration names must be descriptive: `create_floor_plans_table`, `add_status_to_orders_table`
+2. Always add `$table->timestamps()` to every new table
+3. Foreign key to events: use `$table->string('event_id')` (not integer)
+4. Index all foreign key columns
+5. For new transactional tables, add `$table->softDeletes()`
+6. Never drop a column in a migration — create a new migration for rollback
+```
+
+With this steering in place, every time Kiro writes code, it automatically follows project conventions — without needing a reminder every time.
+
+---
+
+## 3. Hooks
+
+### Feature Overview
+
+Hooks are automation mechanisms triggered by specific events in the IDE. They are stored in `.kiro/hooks/*.json` and can perform:
+
+- **Command action** — Run a shell command (linting, testing, building)
+- **Agent action** — Inject a prompt into Kiro's context (guidelines, reminders)
+
+Available triggers:
+| Trigger | When It Fires |
+|---------|---------------|
+| `PostFileSave` | After a file is saved |
+| `PostFileCreate` | After a new file is created |
+| `PostFileDelete` | After a file is deleted |
+| `PreToolUse` | Before Kiro uses a tool |
+| `PostToolUse` | After Kiro uses a tool |
+| `PreTaskExec` | Before a Spec task is executed |
+| `PostTaskExec` | After a Spec task completes |
+| `SessionStart` | When a new session starts |
+| `UserPromptSubmit` | When the user sends a message |
+
+Exit code semantics:
+- `exit 0` — Success, stdout is forwarded
+- `exit 2` — Block the action (for Pre* hooks), stderr is forwarded
+- Other — Silent failure
+
+### Usage Examples
+
+#### Hook 1: Auto-run PHPStan after saving a PHP file
+
+```json
+{
+  "version": "v1",
+  "hooks": [{
+    "name": "PHPStan on Save",
+    "trigger": "PostFileSave",
+    "matcher": "\\.php$",
+    "action": {
+      "type": "command",
+      "command": "cd /path/to/project && ./vendor/bin/phpstan analyse --no-progress --memory-limit=256M"
+    }
+  }]
+}
+```
+
+Every time a PHP file is saved (by the user or Kiro), PHPStan runs to detect type errors and bugs.
+
+#### Hook 2: Run relevant tests after a Spec task completes
+
+```json
+{
+  "version": "v1",
+  "hooks": [{
+    "name": "Run Tests After Task",
+    "trigger": "PostTaskExec",
+    "action": {
+      "type": "command",
+      "command": "cd /path/to/project && php artisan test --filter=Feature"
+    }
+  }]
+}
+```
+
+After Kiro completes a task from a Spec, feature tests are automatically run to ensure no regressions.
+
+#### Hook 3: Convention reminder when editing migrations
+
+```json
+{
+  "version": "v1",
+  "hooks": [{
+    "name": "Migration Convention Reminder",
+    "trigger": "PreToolUse",
+    "matcher": "fs_write|str_replace",
+    "action": {
+      "type": "agent",
+      "prompt": "IMPORTANT: If writing a migration file, ensure: (1) event FK uses string('event_id') not integer, (2) always include timestamps(), (3) add an index on all FK columns, (4) transactional tables must have softDeletes()."
+    }
+  }]
+}
+```
+
+Every time Kiro is about to write or edit a file, the migration conventions reminder is injected into its context.
+
+#### Hook 4: Prevent editing the production env file
+
+```json
+{
+  "version": "v1",
+  "hooks": [{
+    "name": "Block Production Env Edit",
+    "trigger": "PreToolUse",
+    "matcher": "fs_write|str_replace|fs_append",
+    "action": {
+      "type": "command",
+      "command": "if echo \"$KIRO_FILE_PATH\" | grep -q '.env.production'; then echo 'BLOCKED: Cannot edit production env file' >&2; exit 2; fi"
+    }
+  }]
+}
+```
+
+This prevents Kiro (or the user) from accidentally editing the `.env.production` file.
+
+#### Hook 5: Auto-clear route cache after editing routes
+
+```json
+{
+  "version": "v1",
+  "hooks": [{
+    "name": "Clear Route Cache",
+    "trigger": "PostFileSave",
+    "matcher": "routes/(web|api)\\.php$",
+    "action": {
+      "type": "command",
+      "command": "cd /path/to/project && php artisan route:clear"
+    }
+  }]
+}
+```
+
+---
+
+## 4. MCP (Model Context Protocol)
+
+### Feature Overview
+
+MCP allows Kiro to connect to external tools and services through a standardized protocol. MCP servers provide additional tools that Kiro can use directly from the IDE.
+
+MCP configuration is stored at:
+- **Workspace level**: `.kiro/settings/mcp.json`
+- **User level (global)**: `~/.kiro/settings/mcp.json`
+
+MCP servers run as background processes and provide tools that Kiro can call while working on tasks.
+
+### Usage Example: Setting Up MySQL + GitHub MCP
+
+**File: `.kiro/settings/mcp.json`**
+
+```json
+{
+  "mcpServers": {
+    "mysql": {
+      "command": "uvx",
+      "args": ["mysql-mcp-server@latest"],
+      "env": {
+        "MYSQL_HOST": "127.0.0.1",
+        "MYSQL_PORT": "3306",
+        "MYSQL_USER": "root",
+        "MYSQL_PASSWORD": "",
+        "MYSQL_DATABASE": "tickets42"
+      },
+      "disabled": false
+    },
+    "github": {
+      "command": "uvx",
+      "args": ["mcp-github@latest"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "disabled": false
+    }
+  }
+}
+```
+
+#### Use Case 1: Debugging an Order Stuck in "Pending"
+
+With the MySQL MCP, you can ask Kiro directly:
+
+```
+Order #ORD-2026-0542 is still showing as pending even though
+the payment was successful. Check the database and find out what happened.
+```
+
+Kiro will use the MySQL MCP to:
+1. Query `orders_2026` by order code
+2. Check the `pending_payments` table for payment intent status
+3. Verify the Stripe webhook log
+4. Identify the root cause (e.g., webhook failed to update status)
+
+#### Use Case 2: Checking CI/CD Status
+
+```
+Check the latest GitHub Actions status for the feature/floorplan branch.
+Are there any errors?
+```
+
+Kiro uses the GitHub MCP to fetch workflow run status and display the error log if there's a failure.
+
+#### Use Case 3: Verifying Migration State
+
+```
+Show me all tables starting with 'floor_plan' in the database,
+including their columns.
+```
+
+Kiro directly queries `SHOW TABLES LIKE 'floor_plan%'` and `DESCRIBE floor_plans` without needing to open a terminal or separate database client.
+
+---
+
+## 5. Agents, Custom Agents, & Sub Agents
+
+### Feature Overview
+
+Kiro has a multi-agent system consisting of:
+
+1. **Built-in Agents** — Specialized built-in agents:
+   - `context-gatherer`: Investigates codebase, traces execution paths, maps architecture
+   - `general-task-execution`: Executes general tasks autonomously
+   - `semantic_reviewer`: Code review at the design/behavior level
+   - `introspect`: Answers questions about Kiro itself
+
+2. **Custom Agents** — User-created agents configurable for project-specific tasks
+
+3. **Sub Agents** — A mechanism for delegating tasks to other agents, including in parallel
+
+Agents work autonomously with their own system prompts and tool access, then return results to the main session.
+
+### Usage Examples
+
+#### Context Gatherer: Investigating a Payment Bug
+
+When there's a bug in the payment flow, you don't need to manually trace from controller to Stripe webhook. Just ask:
+
+```
+Investigate how the Stripe payment flow works in this project.
+Trace from the user submitting the form on the event page until
+the order status changes to "approved".
+I need to know all files involved and which lines contain the core logic.
+```
+
+The context gatherer will:
+- Trace from the route (`POST /handle-payment`)
+- To the controller (`PaymentController` or `OrderController`)
+- To the Stripe service/helper
+- To the webhook handler (`POST /stripe/webhook`)
+- To the model (Order status update)
+- Return a complete analysis with file paths and line numbers
+
+#### Custom Agent: "Laravel CRUD Generator"
+
+Create a custom agent that understands your project patterns for generating boilerplate:
+
+**Prompt to create the custom agent:**
+
+```
+Create a custom agent named "wmedia-crud-generator" that can generate:
+1. Migration file (following conventions: event FK uses string, timestamps, softDeletes)
+2. Eloquent Model (with relations, fillable, casts)
+3. Admin Controller (extends Controller, CRUD methods)
+4. Blade views (extends layouts.admin, uses DataTables)
+5. Route registration in web.php
+
+The agent should reference patterns from existing code:
+- Model: app/Models/Order2026.php
+- Controller: app/Http/Controllers/OrderController.php
+- Views: resources/views/admin/orders/
+```
+
+Once the agent is created, you simply say:
+
+```
+@wmedia-crud-generator Create CRUD for the "Exhibitor" entity with fields:
+- name (string)
+- company_id (FK to companies)
+- event_id (string, FK to events.post_id)
+- booth_number (string)
+- description (text, nullable)
+- logo (string, nullable)
+- website (string, nullable)
+- status (enum: active, inactive)
+```
+
+The agent generates all files following the existing project patterns.
+
+#### Sub Agents: Parallel Code Review
+
+After finishing a large feature implementation, use sub agents for parallel review:
+
+```
+Review the Floor Plan feature implementation that was just completed:
+1. Dispatch context-gatherer to verify all relations and FKs are correct
+2. Dispatch semantic_reviewer for design-level review of changes
+3. Dispatch general-task-execution to run php artisan test
+```
+
+Three agents work in parallel — one verifies database design, one reviews code quality, one runs tests.
+
+---
+
+## 6. Skills
+
+### Feature Overview
+
+Skills are reusable instruction sets that can be activated on demand. They contain documentation, workflow guides, and specific instructions loaded into Kiro's context when needed.
+
+Skills are stored in:
+- **User level**: `~/.kiro/skills/`
+- **Workspace level**: `.kiro/skills/`
+
+Skills differ from Steering:
+- **Steering** = always/automatically active (background rules)
+- **Skills** = activated when needed (on-demand expertise)
+
+### Usage Example: Creating Project-Specific Skills
+
+#### Skill 1: "Stripe Payment Integration"
+
+**File: `.kiro/skills/stripe-payment.md`**
+
+```markdown
+# Stripe Payment Integration Skill
+
+## Overview
+This skill contains the complete guide for working with Stripe in W Media Ticketing.
+
+## Current Implementation
+- Library: stripe/stripe-php
+- Payment Methods: Card (Payment Intent) + WeChat Pay
+- Webhook endpoint: POST /stripe/webhook
+- Webhook secret: STRIPE_WEBHOOK_SECRET env var
+
+## Payment Intent Flow
+1. Frontend collects card via Stripe.js Elements
+2. POST /handle-payment → create PaymentIntent
+3. Stripe confirms → redirect to /payment/success
+4. Webhook /stripe/webhook → update order status
+
+## Key Files
+- Config: config/services.php (stripe key & secret)
+- Payment handling: app/Http/Controllers/PaymentController.php
+- Webhook: app/Http/Controllers/StripeWebhookController.php
+- Failed tracking: app/Models/FailedPayment.php
+- Pending tracking: app/Models/PendingPayment.php
+
+## Testing Stripe Locally
+1. Install Stripe CLI: brew install stripe/stripe-cli/stripe
+2. Login: stripe login
+3. Forward webhooks: stripe listen --forward-to localhost:8000/stripe/webhook
+4. Use test cards:
+   - Success: 4242 4242 4242 4242
+   - Decline: 4000 0000 0000 0002
+   - 3D Secure: 4000 0027 6000 3184
+
+## Common Issues & Solutions
+- "No such payment_intent": PendingPayment record mismatch — check payment_intent_id
+- Webhook 400 error: Signature verification failed — check STRIPE_WEBHOOK_SECRET
+- Double charge: Webhook duplicate — implement idempotency check via payment_intent_id
+```
+
+#### Skill 2: "SSO Integration Guide"
+
+**File: `.kiro/skills/sso-integration.md`**
+
+```markdown
+# SSO Integration Skill
+
+## Overview
+W Media Ticketing System serves as the SSO provider for 9+ platforms.
+
+## Architecture
+- Ticketing = Identity Provider (IdP)
+- Other platforms = Service Providers (SP)
+- Method: HMAC-based token generation + redirect
+
+## SSO Flow
+1. User is logged in to Ticketing
+2. Clicks SSO link (e.g., "Go to Connect")
+3. Ticketing generates HMAC token: hash_hmac('sha256', payload, secret)
+4. Redirects to SP URL with token as a query parameter
+5. SP verifies token with shared secret
+6. SP creates/finds user, establishes local session
+
+## Existing Implementations
+
+### HMAC-Based (Connect, IW)
+- Secret: env(CONNECT_SSO_SECRET), env(IW_SSO_SECRET)
+- Payload: user email + timestamp
+- TTL: 60 seconds (configurable via IW_SSO_TTL)
+
+### API Key Based (DMS)
+- API Key: env(DMS_API_KEY)
+- Method: POST user data to DMS API endpoint
+- DMS creates/updates user and returns session token
+
+### Redirect Only (CDC, w.media, Sijoriweek, DCIS, HPC)
+- Simple redirect with user identifier
+- Platform handles auth via WordPress cookie
+
+## Adding a New SSO Platform
+1. Add env vars: {PLATFORM}_SSO_URL, {PLATFORM}_SSO_SECRET
+2. Create method in SSOController: redirectTo{Platform}()
+3. Register route in routes/web.php 'sso' group
+4. Add link in admin sidebar
+5. Document in CONNECT_SSO_SETUP.md
+
+## Security Notes
+- Token MUST have an expiry (max 60 seconds)
+- Use constant-time comparison for verifying HMAC
+- Log all SSO attempts for audit trail
+- Never pass a password via SSO — only user identifier
+```
+
+When you need to work on the payment or SSO area, activate the relevant skill and Kiro instantly has deep context without needing re-explanation.
+
+---
+
+## 7. Auto (Autopilot Mode)
+
+### Feature Overview
+
+Auto/Autopilot is the mode where Kiro works autonomously to complete tasks end-to-end. In this mode:
+
+- Kiro executes all steps without waiting for per-step approval
+- You can see all changes in real-time
+- You can interrupt, revert, or provide feedback at any time
+- Best suited for well-defined tasks with clear scope
+
+The alternative is **Supervised mode**, where Kiro yields for approval after every turn containing file edits — changes are displayed as individual hunks that can be accepted or rejected one by one.
+
+### When to Use Autopilot vs Supervised
+
+| Scenario | Mode | Reason |
+|----------|------|--------|
+| Generate CRUD boilerplate | Autopilot | Clear pattern, low risk |
+| Refactor a fat controller | Autopilot | Well-defined transformation |
+| Edit payment logic | Supervised | High-risk, needs per-change review |
+| Alter database schema | Supervised | Irreversible once migrated |
+| Bulk-update Blade templates | Autopilot | Repetitive, pattern-based |
+| Modify auth/SSO logic | Supervised | Security-sensitive |
+
+### Usage Example: Bulk Implementation with Autopilot
+
+**Scenario**: You need to add a "Sponsors with Tiers" feature for the Event App. In Autopilot mode:
+
+```
+Implement the Sponsors with Tiers feature for the Event App:
+
+1. Create migration: sponsors table (event_id string FK, name, logo, website,
+   tier enum[platinum,gold,silver,bronze], sort_order, status)
+2. Create Model Sponsor with relations (belongsTo Event)
+3. Create SponsorAdminController (CRUD) in app/Http/Controllers/
+4. Create views in resources/views/admin/apps/sponsors/ (index, create, edit)
+   using AdminLTE layout + DataTables
+5. Create API SponsorController in app/Http/Controllers/Api/
+   GET /api/apps/events/{event_id}/sponsors (grouped by tier)
+6. Register all routes
+7. Run migration
+
+Follow conventions in steering and patterns from existing code.
+```
+
+Kiro will:
+1. Generate the migration → run it
+2. Create the Model → verify relations
+3. Create the Admin Controller → test routes
+4. Create Blade views → verify rendering
+5. Create the API Controller → test endpoint
+6. Update route files
+7. Run `php artisan migrate`
+
+All done automatically. You just review the final result.
+
+---
+
+## Summary: When to Use Which Feature
+
+| Development Scenario | Kiro Feature to Use |
+|--------------------|---------------------------|
+| Starting a complex new feature | **Spec** (plan first, execute later) |
+| Enforcing consistent coding standards | **Steering** (always-on rules) |
+| Auto quality checks during development | **Hooks** (PostFileSave, PostTaskExec) |
+| Querying the database directly from the IDE | **MCP** (MySQL server) |
+| Investigating a bug across multiple files | **Sub Agent** (context-gatherer) |
+| Generating boilerplate following patterns | **Custom Agent** + **Autopilot** |
+| Deep knowledge of a specific area (Stripe, SSO) | **Skills** (on-demand expertise) |
+| Repetitive bulk changes | **Auto/Autopilot** mode |
+| High-risk changes (payment, auth) | **Supervised** mode |
+| Code review before merge | **Sub Agent** (semantic_reviewer) |
+
+---
+
+## Conclusion
+
+Kiro is more than an AI code assistant — it's a development environment that adapts to your project's workflow and conventions. By combining Spec (structured planning), Steering (persistent rules), Hooks (automated quality gates), MCP (external tool integration), Agents (specialized workers), Skills (on-demand expertise), and Auto mode (autonomous execution), developing and maintaining a project as large as W Media Ticketing System becomes far more structured and efficient.
+
+Most importantly: all these configurations live in the repository (the `.kiro/` folder), so the entire team gets the same experience. Knowledge about conventions, patterns, and project best practices is no longer trapped in one developer's head — it's encoded in Steering, Skills, and Custom Agents that anyone can use.
+
+---
+
+*Have questions or want to discuss AI-assisted development workflows? Reach out via [LinkedIn](https://www.linkedin.com/in/fmuiin14/).*
