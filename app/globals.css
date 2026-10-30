@@ -196,3 +196,41 @@ code {
   border-color: var(--color-border);
   margin: 2rem 0;
 }
+
+/* Invoice generator: break out of the 768px main column on wide screens */
+@media (min-width: 1024px) {
+  .invoice-wide {
+    --invoice-width: min(1200px, calc(100vw - 48px));
+    width: var(--invoice-width);
+    margin-left: calc((100% - var(--invoice-width)) / 2);
+  }
+}
+
+/* Invoice generator: only the invoice is printed */
+.invoice-print-portal {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  body:has(> .invoice-print-portal) {
+    background: white !important;
+  }
+
+  body:has(> .invoice-print-portal) > :not(.invoice-print-portal) {
+    display: none !important;
+  }
+
+  .invoice-print-portal {
+    display: block;
+  }
+
+  .invoice-paper {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

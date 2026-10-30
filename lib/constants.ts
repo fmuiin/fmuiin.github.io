@@ -18,6 +18,7 @@ export const navItems: NavItem[] = [
   { label: "Posts", href: "/posts" },
   { label: "Yapping", href: "/yapping" },
   { label: "About", href: "/about" },
+  { label: "Invoice", href: "/invoice" },
 ];
 
 export const socialLinks: SocialLink[] = [
